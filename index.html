@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Writer</title>
+  <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+  <style>
+    html, body {
+      font-family: "EB Garamond", "Menlo", "Segoe UI", sans-serif;
+    }
+    .writer {
+      padding: 1em;
+      outline: none;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 18px;
+      line-height: 1.2em;
+      margin-left: 20%;
+      margin-right: 20%;
+      cursor: text;
+    }
+
+    .writer:focus {
+      background-color: rgba(234, 231, 231, 0.1);
+    }
+
+    [contenteditable=true]:empty:before {
+      content: attr(placeholder);
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<div class="writer" placeholder="Start typing here..." data-gramm="false" role="textbox"></div>
+<script type="text/javascript">
+(function(){
+  Writer = window.Writer || {};
+
+  prefix = 'writer-';
+
+  Writer.element = null;
+
+  Writer.init = function(selector) {
+    el = document.querySelector(selector);
+    el.contentEditable = true;
+    if(window.localStorage.getItem(prefix + 'content')) {
+      el.innerHTML = window.localStorage.getItem(prefix + 'content');
+    }
+    Writer.element = el;
+  }
+
+  Writer.set = function(content) {
+    window.localStorage.setItem(prefix + 'content', content);
+  };
+
+  Writer.get = function() {
+    window.localStorage.getItem(prefix + 'content');
+  };
+
+  callback = function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    if(event.target == Writer.element) {
+      Writer.set(event.target.innerHTML);
+    }
+  };
+
+  window.addEventListener('keyup', callback);
+})();
+
+el = Writer.init('.writer');
+
+</script>
+</body>
+</html>

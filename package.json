@@ -1,0 +1,11 @@
+{
+  "name": "writer",
+  "version": "1.0.0",
+  "description": "Writing, and persisting to Localstorage",
+  "main": "index.js",
+  "scripts": {
+    "server": "node node_modules/serve/bin/serve.js"
+  },
+  "author": "Rajat Jain",
+  "license": "ISC"
+}
